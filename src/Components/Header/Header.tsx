@@ -1,13 +1,15 @@
 import { Box } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import SearchBox from "./SearchBox";
-import SideBar from "./SideBar";
+import SideBar from "../SideBar/SideBar";
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     headerContainer: {
       display: "flex",
+      position:"relative",
+      top:"4em"
     },
   })
 );

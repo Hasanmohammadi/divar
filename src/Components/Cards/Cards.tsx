@@ -5,6 +5,8 @@ import { useContext } from "react";
 import Context from "../../context";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     line: {
@@ -30,15 +32,18 @@ const Cards: React.FC<CardsProps> = () => {
   //@ts-ignore
   const cardInformation = context.data.widget_list;
 
-  // console.log(cardInformation);
+
   return (
+    
+
+    
     //@ts-ignore
      <InfiniteScroll dataLength={cardInformation.length} next={context.goToNextPage} hasMore={true}> 
     <Box>
       <hr className={classes.line} />
       <Box className={classes.cardsContainer}>
         {cardInformation.map((info: any) => {
-          return <Card data={info.data} key={info.data.token} />;
+          return <Card data={info.data} key={uuidv4()} />;
         })}
       </Box>
     </Box>

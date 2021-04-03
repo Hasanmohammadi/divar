@@ -99,7 +99,7 @@ const Card: React.FC<CardProps> = ({data , data:{
                 <ButtonBase className={classes.image}>
                   <img
                     className={classes.img}
-                    alt="pictur's card"
+                    alt="card's img"
                     src={image}
                   />
                 </ButtonBase>

@@ -36,6 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
       height: " 4em",
       border: "1px solid rgb(34 36 38 / 8%)",
       display: "flex",
+      position:"fixed",
+      backgroundColor:"white",
+      //@ts-ignore
+      //@ts-ignore
+      zIndex:"1",
     },
 
     rightSide: {

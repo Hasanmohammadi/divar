@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import Context from "./context";
 import "./App.css";
 
@@ -9,7 +9,7 @@ import Header from "./Components/Header/Header";
 function App() {
   const [data, setData] = useState([]);
   const [location, setLocation] = useState("");
-  const [locationValue, setlocationValue] = useState("");
+  const [locationValue, setlocationValue] = useState("tehran");
   const [suggestionUrl, setSuggestionUrl] = useState("");
   const [wordSearch, setWordSearch] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
@@ -24,17 +24,14 @@ function App() {
         )
           .then((response) => response.json())
           .then((d) => setData(d));
-        console.log("fetched");
-        console.log(locationValue);
-        
       } catch (error) {
         console.log(error);
       }
     };
-    
+
     getData();
 
-    console.log(data);
+
   }, [locationValue, suggestionUrl]);
 
   const addCityToLocalStorage = (city: any) => {
@@ -42,7 +39,6 @@ function App() {
     setLocation(city.name);
 
     setlocationValue(city.value);
-    console.log("clicked");
   };
 
   const setLocationCity = () => {
@@ -58,6 +54,8 @@ function App() {
   const setSugg = (newSug: any) => {
     setSuggestionUrl(newSug);
   };
+
+
 
   const setDataHomePage = async () => {
     try {
@@ -85,7 +83,6 @@ function App() {
       console.log(error);
     }
 
-    // console.log(wordSearch);
   };
 
   const goToNextPage = async () => {
@@ -95,10 +92,12 @@ function App() {
       )
         .then((responce) => responce.json())
         .then((d) =>
-          setData( {
-            ...data,
-            //@ts-ignore
-            widget_list:data.widget_list.concat(d.widget_list)
+          setData((pre) => {
+            return {
+              ...pre,
+              //@ts-ignore
+              widget_list: pre.widget_list.concat(d.widget_list),
+            };
           })
         );
       setPageNumber((pre) => pre + 1);
@@ -106,6 +105,27 @@ function App() {
       console.log(error);
     }
   };
+
+  const setDataFromSugg = async (subject:any) => {
+    setSuggestionUrl(subject);
+    try {
+      fetch(
+        `https://api.divar.ir/v8/web-search/${locationValue}/${subject}`
+      )
+        .then((response) => response.json())
+        .then((data) => setData(data));
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+
+
+
+
+
+
   if (data.length === 0) {
     return <h1>Loading</h1>;
   }
@@ -119,18 +139,19 @@ function App() {
           cityUrl: location,
           locationValue,
           suggestionUrl,
-          setSugg,
           setLocationCity,
           addCityToLocalStorage,
           setDataHomePage,
           setWordSearch,
           getDataSearch,
           goToNextPage,
+       setDataFromSugg,
         }}
       >
         <BrowserRouter>
           <Navbar />
           <Header />
+          {/* <Route path="/" render={() => <Redirect to="/laksnla" />} /> */}
         </BrowserRouter>
       </Context.Provider>
     </div>

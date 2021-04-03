@@ -45,7 +45,7 @@ const SuggestionList: React.FC<BtnCategoryProps> = () => {
         key={suggestion.value.category.value}
         to={`/${context.locationValue}/${suggestion.value.category.value}`}
         className={classes.link}
-        onClick={()=>context.setSugg(suggestion.value.category.value)}
+        onClick={()=>context.setDataFromSugg(suggestion.value.category.value)}
       >
         {`${suggestion.displayed_text} `}
       </Link>
