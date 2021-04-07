@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Redirect, Route } from "react-router-dom";
-import Context from "./context";
+import { Redirect, Route, useHistory } from "react-router-dom";
 import "./App.css";
-
-import Navbar from "./Components/Navbar/Navbar";
+import FirstPage from "./Components/AtFirst/FirstPage";
 import Header from "./Components/Header/Header";
+import Navbar from "./Components/Navbar/Navbar";
+import Context from "./context";
+
+const url = "https://api.divar.ir/v8/web-search";
 
 function App() {
   const [data, setData] = useState([]);
   const [location, setLocation] = useState("");
-  const [locationValue, setlocationValue] = useState("tehran");
+  const [locationValue, setlocationValue] = useState("");
   const [suggestionUrl, setSuggestionUrl] = useState("");
   const [wordSearch, setWordSearch] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+
+  const history = useHistory();
 
   useEffect(() => {
     setLocationCity();
 
     const getData = async () => {
       try {
-        fetch(
-          `https://api.divar.ir/v8/web-search/${locationValue}/${suggestionUrl}`
-        )
+        fetch(`${url}/${locationValue}/${suggestionUrl}`)
           .then((response) => response.json())
           .then((d) => setData(d));
       } catch (error) {
@@ -30,8 +32,6 @@ function App() {
     };
 
     getData();
-
-
   }, [locationValue, suggestionUrl]);
 
   const addCityToLocalStorage = (city: any) => {
@@ -51,15 +51,9 @@ function App() {
     setlocationValue(location.value);
   };
 
-  const setSugg = (newSug: any) => {
-    setSuggestionUrl(newSug);
-  };
-
-
-
   const setDataHomePage = async () => {
     try {
-      fetch(`https://api.divar.ir/v8/web-search/${locationValue}`)
+      fetch(`${url}/${locationValue}`)
         .then((response) => response.json())
         .then((data) => setData(data));
     } catch (error) {
@@ -67,29 +61,30 @@ function App() {
     }
 
     setSuggestionUrl("");
+    setWordSearch("");
   };
 
   const getDataSearch = async (e: any) => {
     e.preventDefault();
-    setWordSearch(e.target.children[0].value);
 
     try {
-      fetch(
-        `https://api.divar.ir/v8/web-search/${locationValue}?q=${e.target.children[0].value}`
-      )
+      fetch(`${url}/${locationValue}?q=${wordSearch}`)
         .then((response) => response.json())
         .then((data) => setData(data));
     } catch (error) {
       console.log(error);
     }
+    history.push(`/${locationValue}?q=${wordSearch}`);
+  };
 
+  const setSearchWord = (e: any) => {
+    setWordSearch(e.target.value);
+    console.log(wordSearch);
   };
 
   const goToNextPage = async () => {
     try {
-      fetch(
-        `https://api.divar.ir/v8/web-search/${locationValue}/${suggestionUrl}?page=${pageNumber}`
-      )
+      fetch(`${url}/${locationValue}/${suggestionUrl}?page=${pageNumber}`)
         .then((responce) => responce.json())
         .then((d) =>
           setData((pre) => {
@@ -106,28 +101,33 @@ function App() {
     }
   };
 
-  const setDataFromSugg = async (subject:any) => {
+  const setDataFromSugg = async (subject: any) => {
     setSuggestionUrl(subject);
     try {
-      fetch(
-        `https://api.divar.ir/v8/web-search/${locationValue}/${subject}`
-      )
+      fetch(`${url}/${locationValue}/${subject}`)
         .then((response) => response.json())
         .then((data) => setData(data));
     } catch (error) {
       console.log(error);
     }
-
-  }
-
-
-
-
-
-
+    setWordSearch("");
+  };
 
   if (data.length === 0) {
     return <h1>Loading</h1>;
+  }
+
+  if (locationValue === "") {
+    return (
+      <Context.Provider
+        //@ts-ignore
+        value={{
+          addCityToLocalStorage,
+        }}
+      >
+        <FirstPage />
+      </Context.Provider>
+    );
   }
 
   return (
@@ -139,20 +139,23 @@ function App() {
           cityUrl: location,
           locationValue,
           suggestionUrl,
+          wordSearch,
           setLocationCity,
           addCityToLocalStorage,
           setDataHomePage,
-          setWordSearch,
           getDataSearch,
           goToNextPage,
-       setDataFromSugg,
+          setDataFromSugg,
+          setSearchWord,
         }}
       >
-        <BrowserRouter>
-          <Navbar />
-          <Header />
-          {/* <Route path="/" render={() => <Redirect to="/laksnla" />} /> */}
-        </BrowserRouter>
+        <Navbar />
+        <Header />
+        <Route
+          path="/"
+          render={() => <Redirect to={`/${locationValue}`} />}
+          exact
+        />
       </Context.Provider>
     </div>
   );

@@ -1,12 +1,11 @@
-import React from "react";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-
-import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import { Box } from "@material-ui/core";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import Grid from "@material-ui/core/Grid";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import React from "react";
 import { Link } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,9 +64,6 @@ const Card: React.FC<CardProps> = ({data , data:{
   image,
   description,
   normal_text,
-  city,
-  district,
-  category,
 }}) => {
 
   
@@ -76,7 +72,7 @@ const Card: React.FC<CardProps> = ({data , data:{
   
   const classes = useStyles();
   return (
-    // <InfiniteScroll> 
+
     <Box className={classes.root}>
       <Box className={classes.paper}>
         <Link to="/" className={classes.link}>
@@ -109,7 +105,6 @@ const Card: React.FC<CardProps> = ({data , data:{
         </Link>
       </Box>
     </Box>
-    // </InfiniteScroll>
   );
 };
 

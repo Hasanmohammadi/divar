@@ -5,11 +5,12 @@ export default createContext({
   cityUrl: "",
   locationValue: "",
   suggestionUrl: "",
+  wordSearch:"",
   setLocationCity: () => {},
   addCityToLocalStorage: (city: any) => {},
   setDataHomePage: () => {},
-  setWordSearch: (e:any) => {},
   getDataSearch: (e:any) => {},
   goToNextPage: () => {},
-  setDataFromSugg:(sugg:any) => {}
+  setDataFromSugg:(sugg:any) => {},
+  setSearchWord:(e:any) => {}
 });

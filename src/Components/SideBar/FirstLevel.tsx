@@ -61,8 +61,8 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
               </p>
             </Route>
             <Route path={`/${context.locationValue}/${item.slug}`} exact>
-              {console.log(`/${context.locationValue}/${item.slug}`)
-              }
+              {/* {console.log(`/${context.locationValue}/${item.slug}`) */}
+              
               <SecondLevel parent={item} child={item.children} />
             </Route>
           </div>

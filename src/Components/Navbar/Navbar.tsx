@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor:"white",
       //@ts-ignore
       //@ts-ignore
-      zIndex:"1",
+      zIndex:2
     },
 
     rightSide: {

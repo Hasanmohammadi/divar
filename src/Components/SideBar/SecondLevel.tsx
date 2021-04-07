@@ -1,10 +1,10 @@
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useContext } from "react";
-import { Switch, NavLink, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Context from "../../context";
+import { NavLink, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import ThirdLevel from "./ThirdLevel";
+import Context from "../../context";
 import MenuHeader from "./MenuHeader";
+import ThirdLevel from "./ThirdLevel";
 
 export interface SecondLevelProps {
   child: any;
@@ -47,6 +47,7 @@ const SecondLevel: React.FC<SecondLevelProps> = ({ parent, child }) => {
               <NavLink
                 to={`/${context.locationValue}/${item.slug}`}
                 className={classes.link}
+                onClick={() => context.setDataFromSugg(item.slug)}
               >
                 {item.name}
               
@@ -55,12 +56,12 @@ const SecondLevel: React.FC<SecondLevelProps> = ({ parent, child }) => {
             {/* {console.log(`/${context.locationValue}/${item.slug}`)} */}
           
 
+    
             <Route exact path={`/${context.locationValue}/${item.slug}`} >
-              {console.log(`/${context.locationValue}/${item.slug}`)}
+              {/* {console.log(`/${context.locationValue}/${item.slug}`)} */}
                 <p>hi</p>
               <ThirdLevel />
             </Route>
-    
           </div>
         );
       })}
