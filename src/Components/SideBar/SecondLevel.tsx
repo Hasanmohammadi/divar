@@ -39,7 +39,7 @@ const SecondLevel: React.FC<SecondLevelProps> = ({ parent, child }) => {
 
   return (
     <>
-      <MenuHeader parent={parent} />
+      {/* <MenuHeader parent={parent} />
       {child.map((item: any) => {
         return (
           <div key={uuidv4()}>
@@ -53,18 +53,9 @@ const SecondLevel: React.FC<SecondLevelProps> = ({ parent, child }) => {
               
               </NavLink>
             </p>
-            {/* {console.log(`/${context.locationValue}/${item.slug}`)} */}
-          
-
-    
-            <Route exact path={`/${context.locationValue}/${item.slug}`} >
-              {/* {console.log(`/${context.locationValue}/${item.slug}`)} */}
-                <p>hi</p>
-              <ThirdLevel />
-            </Route>
           </div>
         );
-      })}
+      })} */}
     </>
   );
 };

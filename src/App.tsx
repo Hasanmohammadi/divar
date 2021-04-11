@@ -125,6 +125,7 @@ function App() {
       </Context.Provider>
     );
   }
+  
   if (data.length === 0) {
     return <h1>Loading</h1>;
   }

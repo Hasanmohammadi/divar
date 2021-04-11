@@ -1,9 +1,8 @@
 import { Box } from "@material-ui/core";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { allCategories } from "../../DATA/SubMenu-data";
-import { NavLink } from "react-router-dom";
 import FirstLevel from "./FirstLevel";
+
 export interface SideBarProps {}
 
 const useStyles = makeStyles((theme: Theme) =>
