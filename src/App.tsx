@@ -112,11 +112,7 @@ function App() {
     }
     setWordSearch("");
   };
-
-  if (data.length === 0) {
-    return <h1>Loading</h1>;
-  }
-
+  
   if (locationValue === "") {
     return (
       <Context.Provider
@@ -129,6 +125,10 @@ function App() {
       </Context.Provider>
     );
   }
+  if (data.length === 0) {
+    return <h1>Loading</h1>;
+  }
+
 
   return (
     <div>

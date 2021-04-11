@@ -145,7 +145,6 @@ setCity({...city , popularCity:filtredCity})
           {/* {location.name} */}
           {context.cityUrl}
         </Button>
-
         <Modal
           open={open}
           onClose={handleClose}
