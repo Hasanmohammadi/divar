@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Context from "../../context";
 import Cards from "../Cards/Cards";
 import BtnCategory from "./SuggestionList";
@@ -46,8 +46,15 @@ export interface DropDownProps {}
 
 const SearchBox: React.FC<DropDownProps> = () => {
   const classes = useStyles();
-  const { setSearchWord } = useContext(Context);
+  const { getDataSearch } = useContext(Context);
+  const [searchWord, setSearchWord] = useState<string>("");
+  const getWordSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 
+    
+    setSearchWord(e.target.value);
+  };
+
+  
   return (
     <Box className={classes.container}>
       <Box className={classes.searchBox}>
@@ -65,14 +72,15 @@ const SearchBox: React.FC<DropDownProps> = () => {
         </select>
 
         <form
-          onSubmit={(e: React.ChangeEvent<HTMLInputElement> | any) =>
-            setSearchWord(e)
+          onSubmit={(e:any) =>
+            getDataSearch(searchWord , e)
           }
           style={{ width: "100%" }}
         >
           <input
             className={classes.SearchInput}
             placeholder="جستجو در همهٔ آگهی‌ها"
+            onChange={(e) => getWordSearch(e)}
           />
         </form>
       </Box>

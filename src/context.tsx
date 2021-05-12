@@ -10,8 +10,29 @@ export default createContext<ContextType>({
   setLocationCity: () => {},
   addCityToLocalStorage: (city) => {},
   setDataHomePage: () => {},
-  getDataSearch: (e) => {},
+  getDataSearch: (word) => {},
   goToNextPage: () => {},
   setDataFromSugg:(sugg) => {},
-  setSearchWord:(e) => {}
 });
+
+
+const DivarContext:React.FC = () => {
+
+
+
+
+
+
+
+
+
+
+  
+
+  return(
+    <div>
+
+    </div>
+  )
+}
+

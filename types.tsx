@@ -7,10 +7,9 @@ export interface ContextType {
   setLocationCity: () => void;
   addCityToLocalStorage: (city: CityType) => void;
   setDataHomePage: () => void;
-  getDataSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  getDataSearch: (word:string , e: React.ChangeEvent<HTMLInputElement>) => void;
   goToNextPage: () => void;
   setDataFromSugg: (sugg: string) => void;
-  setSearchWord: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 export interface CityType {
   name: string;

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Redirect, Route, useHistory } from "react-router-dom";
-import { CityType } from './../types';
+import { CityType } from "./../types";
 import "./App.css";
 import FirstPage from "./Components/AtFirst/FirstPage";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Context from "./context";
 
-const url:string = "https://api.divar.ir/v8/web-search";
+const url: string = "https://api.divar.ir/v8/web-search";
 
 function App() {
   const [data, setData] = useState([]);
@@ -35,15 +35,14 @@ function App() {
     getData();
   }, [locationValue, suggestionUrl]);
 
-  const addCityToLocalStorage = (city: CityType):void => {
-    
+  const addCityToLocalStorage = (city: CityType): void => {
     localStorage.setItem("divarLocation", JSON.stringify(city));
     setLocation(city.name);
 
     setlocationValue(city.value);
   };
 
-  const setLocationCity = ():void => {
+  const setLocationCity = (): void => {
     const getLocation: any = localStorage.getItem("divarLocation");
     if (getLocation === null) {
       return;
@@ -66,35 +65,20 @@ function App() {
     setWordSearch("");
   };
 
-  const getDataSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
+  const getDataSearch = async (
+    word: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
 
     try {
-      fetch(`${url}/${locationValue}?q=${wordSearch}`)
+      fetch(`${url}/${locationValue}?q=${word}`)
         .then((response) => response.json())
         .then((data) => setData(data));
     } catch (error) {
       console.log(error);
     }
-    history.push(`/${locationValue}?q=${wordSearch}`);
-  };
-
-  useEffect(() => {
-
-    try {
-      fetch(`${url}/${locationValue}?q=${wordSearch}`)
-        .then((response) => response.json())
-        .then((data) => setData(data));
-    } catch (error) {
-      console.log(error);
-    }
-    history.push(`/${locationValue}?q=${wordSearch}`);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [wordSearch])
-
-  const setSearchWord = (e:React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setWordSearch(e.target.value);
+    history.push(`/${locationValue}?q=${word}`);
   };
 
   const goToNextPage = async () => {
@@ -127,7 +111,7 @@ function App() {
     }
     setWordSearch("");
   };
-  
+
   if (locationValue === "") {
     return (
       <Context.Provider
@@ -140,15 +124,13 @@ function App() {
       </Context.Provider>
     );
   }
-  
+
   if (data.length === 0) {
     return <h1>Loading</h1>;
   }
 
-
   return (
     <div>
-      {/*@ts-ignore*/}
       <Context.Provider
         value={{
           data,
@@ -162,7 +144,6 @@ function App() {
           getDataSearch,
           goToNextPage,
           setDataFromSugg,
-          setSearchWord,
         }}
       >
         <Navbar />
