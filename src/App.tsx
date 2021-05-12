@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { Redirect, Route, useHistory } from "react-router-dom";
+import { CityType } from './../types';
 import "./App.css";
 import FirstPage from "./Components/AtFirst/FirstPage";
 import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 import Context from "./context";
 
-const url = "https://api.divar.ir/v8/web-search";
+const url:string = "https://api.divar.ir/v8/web-search";
 
 function App() {
   const [data, setData] = useState([]);
-  const [location, setLocation] = useState("");
-  const [locationValue, setlocationValue] = useState("");
-  const [suggestionUrl, setSuggestionUrl] = useState("");
-  const [wordSearch, setWordSearch] = useState("");
-  const [pageNumber, setPageNumber] = useState(1);
+  const [location, setLocation] = useState<string>("");
+  const [locationValue, setlocationValue] = useState<string>("");
+  const [suggestionUrl, setSuggestionUrl] = useState<string>("");
+  const [wordSearch, setWordSearch] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
   const history = useHistory();
 
@@ -34,14 +35,15 @@ function App() {
     getData();
   }, [locationValue, suggestionUrl]);
 
-  const addCityToLocalStorage = (city: any) => {
+  const addCityToLocalStorage = (city: CityType):void => {
+    
     localStorage.setItem("divarLocation", JSON.stringify(city));
     setLocation(city.name);
 
     setlocationValue(city.value);
   };
 
-  const setLocationCity = () => {
+  const setLocationCity = ():void => {
     const getLocation: any = localStorage.getItem("divarLocation");
     if (getLocation === null) {
       return;
@@ -64,7 +66,7 @@ function App() {
     setWordSearch("");
   };
 
-  const getDataSearch = async (e: any) => {
+  const getDataSearch = async (e:React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     try {
@@ -77,9 +79,22 @@ function App() {
     history.push(`/${locationValue}?q=${wordSearch}`);
   };
 
-  const setSearchWord = (e: any) => {
+  useEffect(() => {
+
+    try {
+      fetch(`${url}/${locationValue}?q=${wordSearch}`)
+        .then((response) => response.json())
+        .then((data) => setData(data));
+    } catch (error) {
+      console.log(error);
+    }
+    history.push(`/${locationValue}?q=${wordSearch}`);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wordSearch])
+
+  const setSearchWord = (e:React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     setWordSearch(e.target.value);
-    console.log(wordSearch);
   };
 
   const goToNextPage = async () => {
@@ -101,7 +116,7 @@ function App() {
     }
   };
 
-  const setDataFromSugg = async (subject: any) => {
+  const setDataFromSugg = async (subject: string) => {
     setSuggestionUrl(subject);
     try {
       fetch(`${url}/${locationValue}/${subject}`)

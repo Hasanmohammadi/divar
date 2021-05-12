@@ -5,7 +5,7 @@ import { useContext } from "react";
 import Context from "../../context";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +25,26 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface CardsProps {}
+export interface DataType {
+  category: string;
+  city: string;
+  description: string;
+  has_chat: boolean;
+  image: string;
+  image_overlay_tag: any;
+  image_top_left_tag: any;
+  index: number;
+  normal_text: string;
+  red_text: string;
+  title: string;
+  token: string;
+  web_image: any;
+  widget_type: string;
+}
+export interface InfoType {
+  widget_type: string;
+  data: DataType;
+}
 
 const Cards: React.FC<CardsProps> = () => {
   const context = useContext(Context);
@@ -32,22 +52,22 @@ const Cards: React.FC<CardsProps> = () => {
   //@ts-ignore
   const cardInformation = context.data.widget_list;
 
-
   return (
-    
-
-    
     //@ts-ignore
-     <InfiniteScroll dataLength={cardInformation.length} next={context.goToNextPage} hasMore={true}> 
-    <Box>
-      <hr className={classes.line} />
-      <Box className={classes.cardsContainer}>
-        {cardInformation.map((info: any) => {
-          return <Card data={info.data} key={uuidv4()} />;
-        })}
+    <InfiniteScroll
+      dataLength={cardInformation.length}
+      next={context.goToNextPage}
+      hasMore={true}
+    >
+      <Box>
+        <hr className={classes.line} />
+        <Box className={classes.cardsContainer}>
+          {cardInformation.map((info: InfoType) => {
+            return <Card data={info.data} key={uuidv4()} />;
+          })}
+        </Box>
       </Box>
-    </Box>
-  </InfiniteScroll>
+    </InfiniteScroll>
   );
 };
 

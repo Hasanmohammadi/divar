@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -42,37 +41,26 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "black",
       fontSize: "17px",
     },
-    priceText :{
-
-    }
+    priceText: {},
   })
 );
 
-export interface CardProps {
-  data: any;
-  // title?: string;
-  // image?: string;
-  // description?: string;
-  // normal_text?: string;
-  // city?: string;
-  // district?: string;
-  // category?: string;
+interface DataPropsType {
+  title: string;
+  image: string;
+  description: string;
+  normal_text: string;
 }
 
-const Card: React.FC<CardProps> = ({data , data:{
-  title,
-  image,
-  description,
-  normal_text,
-}}) => {
+export interface CardProps {
+  data: DataPropsType;
+}
 
-  
-
-
-  
+const Card: React.FC<CardProps> = ({
+  data: { title, image, description, normal_text },
+}) => {
   const classes = useStyles();
   return (
-
     <Box className={classes.root}>
       <Box className={classes.paper}>
         <Link to="/" className={classes.link}>
@@ -80,7 +68,7 @@ const Card: React.FC<CardProps> = ({data , data:{
             <Grid item xs={12} sm container>
               <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
-                  <p>{title.slice(0,35)}</p>
+                  <p>{title.slice(0, 35)}</p>
                 </Grid>
                 <Grid item>
                   <Typography variant="body2" color="textSecondary">
@@ -93,11 +81,7 @@ const Card: React.FC<CardProps> = ({data , data:{
               </Grid>
               <Grid item>
                 <ButtonBase className={classes.image}>
-                  <img
-                    className={classes.img}
-                    alt="card's img"
-                    src={image}
-                  />
+                  <img className={classes.img} alt="card's img" src={image} />
                 </ButtonBase>
               </Grid>
             </Grid>

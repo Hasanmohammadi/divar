@@ -1,16 +1,17 @@
 import { createContext } from "react";
+import {ContextType} from './../types';
 
-export default createContext({
+export default createContext<ContextType>({
   data: [],
   cityUrl: "",
   locationValue: "",
   suggestionUrl: "",
   wordSearch:"",
   setLocationCity: () => {},
-  addCityToLocalStorage: (city: any) => {},
+  addCityToLocalStorage: (city) => {},
   setDataHomePage: () => {},
-  getDataSearch: (e:any) => {},
+  getDataSearch: (e) => {},
   goToNextPage: () => {},
-  setDataFromSugg:(sugg:any) => {},
-  setSearchWord:(e:any) => {}
+  setDataFromSugg:(sugg) => {},
+  setSearchWord:(e) => {}
 });

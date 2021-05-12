@@ -117,9 +117,6 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
             
             {item.children.map((thirdLevel: any) => {
 
-              // console.log(`/${context.locationValue}/${thirdLevel.slug}`);
-              console.log(thirdLevel);
-
               return (
                 <>
                   <Route path={`/${context.locationValue}/${thirdLevel.slug}`}>
@@ -127,7 +124,7 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
                    <p className={classes.pLinkTitle}>{thirdLevel.name}</p>
 
                     {thirdLevel.children.map((thirdLevelLink:any) => {
-                      console.log(thirdLevelLink);
+                    
                       return(<>
                       <div key={uuidv4()}>
 
@@ -136,7 +133,6 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
                             to={`/${context.locationValue}/${thirdLevelLink.slug}`}
                             className={classes.nestedLink}
                             activeClassName={classes.nestedLinkActive}
-                            // onClick={() => context.setDataFromSugg(thirdLevel.slug)}
                             >
                             {thirdLevelLink.name}
                           </NavLink>

@@ -46,7 +46,7 @@ export interface DropDownProps {}
 
 const SearchBox: React.FC<DropDownProps> = () => {
   const classes = useStyles();
-  const { getDataSearch } = useContext(Context);
+  const { setSearchWord } = useContext(Context);
 
   return (
     <Box className={classes.container}>
@@ -64,11 +64,10 @@ const SearchBox: React.FC<DropDownProps> = () => {
           <option>استخدام و کاریابی</option>
         </select>
 
-        <form onSubmit={(e) => getDataSearch(e)} style={{ width: "100%" }}>
+        <form onSubmit={(e: React.ChangeEvent<HTMLInputElement> |  any) => setSearchWord(e)} style={{ width: "100%" }}>
           <input
             className={classes.SearchInput}
             placeholder="جستجو در همهٔ آگهی‌ها"
-            // onChange={(e) => getDataSearch(e)}
           />
         </form>
       </Box>
