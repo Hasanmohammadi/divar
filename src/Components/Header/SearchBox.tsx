@@ -1,9 +1,9 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import BtnCategory from "./SuggestionList";
-import Cards from "../Cards/Cards";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useContext } from "react";
 import Context from "../../context";
+import Cards from "../Cards/Cards";
+import BtnCategory from "./SuggestionList";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,14 +64,18 @@ const SearchBox: React.FC<DropDownProps> = () => {
           <option>استخدام و کاریابی</option>
         </select>
 
-        <form onSubmit={(e: React.ChangeEvent<HTMLInputElement> |  any) => setSearchWord(e)} style={{ width: "100%" }}>
+        <form
+          onSubmit={(e: React.ChangeEvent<HTMLInputElement> | any) =>
+            setSearchWord(e)
+          }
+          style={{ width: "100%" }}
+        >
           <input
             className={classes.SearchInput}
             placeholder="جستجو در همهٔ آگهی‌ها"
           />
         </form>
       </Box>
-
       <BtnCategory />
       <Cards />
     </Box>
@@ -79,8 +83,8 @@ const SearchBox: React.FC<DropDownProps> = () => {
 };
 
 export default SearchBox;
-function e(
-  e: any
-): import("react").ChangeEventHandler<HTMLInputElement> | undefined {
-  throw new Error("Function not implemented.");
-}
+// function e(
+//   e: any
+// ): import("react").ChangeEventHandler<HTMLInputElement> | undefined {
+//   throw new Error("Function not implemented.");
+// }

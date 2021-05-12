@@ -2,10 +2,16 @@ import { Box } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { cities } from "../../../types";
 import Context from "../../context";
 
+export interface CityType {
+  name: string;
+  value: string;
+}
+
 export interface ModalCityProps {
-  city: any;
+  city: cities;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,14 +51,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ModalCity: React.FC<ModalCityProps> = ({ city }) => {
   const classes = useStyles();
-  const context = useContext(Context)
-
+  const context = useContext(Context);
 
   return (
     <Box>
       <p className={classes.title}>شهرهای پربازدید</p>
       <Box className={classes.cityContainre}>
-        {city.popularCity.map((city: any) => {
+        {city.popularCity.map((city: CityType) => {
           return (
             <NavLink
               to={`/${city.value}/${context.suggestionUrl}`}

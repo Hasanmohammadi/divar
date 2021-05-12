@@ -35,9 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: " 0.9rem",
       fontWeight: 500,
       margin: "0px 10px 0 18px",
-      "&:hover":{
+      "&:hover": {
         color: "#909090",
-      }
+      },
     },
   })
 );

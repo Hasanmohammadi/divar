@@ -1,9 +1,8 @@
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useContext } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Context from "../../context";
-import SecondLevel from "./SecondLevel";
 import MenuHeader from "./MenuHeader";
 
 export interface FirstLevelProps {
@@ -77,6 +76,8 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
       <h4 className={classes.title}>دسته بندی ها</h4>
       {/*@ts-ignore*/}
       {data.children.map((item) => {
+      
+        
         return (
           <div key={uuidv4()}>
             <Route path={`/${context.locationValue}`} exact>
@@ -114,31 +115,29 @@ const FirstLevel: React.FC<FirstLevelProps> = ({ data }) => {
               })}
             </Route>
 
-            
             {item.children.map((thirdLevel: any) => {
-
               return (
                 <>
                   <Route path={`/${context.locationValue}/${thirdLevel.slug}`}>
-                   <MenuHeader parent={item} />
-                   <p className={classes.pLinkTitle}>{thirdLevel.name}</p>
+                    <MenuHeader parent={item} />
+                    <p className={classes.pLinkTitle}>{thirdLevel.name}</p>
 
-                    {thirdLevel.children.map((thirdLevelLink:any) => {
-                    
-                      return(<>
-                      <div key={uuidv4()}>
-
-                        <p className={classes.pLinkNested}>
-                          <NavLink
-                            to={`/${context.locationValue}/${thirdLevelLink.slug}`}
-                            className={classes.nestedLink}
-                            activeClassName={classes.nestedLinkActive}
-                            >
-                            {thirdLevelLink.name}
-                          </NavLink>
-                        </p>
-                      </div>
-                      </>)
+                    {thirdLevel.children.map((thirdLevelLink: any) => {
+                      return (
+                        <>
+                          <div key={uuidv4()}>
+                            <p className={classes.pLinkNested}>
+                              <NavLink
+                                to={`/${context.locationValue}/${thirdLevelLink.slug}`}
+                                className={classes.nestedLink}
+                                activeClassName={classes.nestedLinkActive}
+                              >
+                                {thirdLevelLink.name}
+                              </NavLink>
+                            </p>
+                          </div>
+                        </>
+                      );
                     })}
                   </Route>
                 </>

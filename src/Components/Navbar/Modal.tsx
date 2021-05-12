@@ -6,8 +6,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import SearchRoundedIcon from "@material-ui/icons/SearchRounded";
 import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
 import ModalCity from "./ModalCity";
-import cityDivar from "../../DATA/divar_city.json"
+import cityDivar from "../../DATA/divar_city.json";
 import Context from "../../context";
+import { cities } from "../../../types";
 
 export interface ModalProps {}
 
@@ -75,15 +76,11 @@ interface modalStyleState {
 }
 
 const NavbarModal: React.FC<ModalProps> = () => {
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [city , setCity] = useState<any>(cityDivar)
+  const [city, setCity] = useState<cities>(cityDivar);
   const [modalStyle] = useState<modalStyleState>(getModalStyle);
   const [open, setOpen] = useState<boolean>(false);
-  const context = useContext(Context)
-  // const location = city.popularCity.find((c:any) => c.value === context.cityUrl)
-
-  
+  const context = useContext(Context);
+  const classes = useStyles();
 
   const handleOpen = () => {
     setOpen(true);
@@ -91,26 +88,18 @@ const NavbarModal: React.FC<ModalProps> = () => {
 
   const handleClose = () => {
     setOpen(false);
-    setCity(cityDivar)
+    setCity(cityDivar);
   };
 
-  const getSearchedCity = (e:any) => {
-// console.log(e.target.value);
-const inputValue = e.target.value
-// // console.log(city.popularCity);
-// const filtredCity = cityDivar.popularCity.filter((c:any)=> c.name.includes(e.target.value))
+  const getSearchedCity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
 
+    const filtredCity = cityDivar.popularCity.filter((c: any) =>
+      c.name.slice(0, inputValue.length).includes(inputValue)
+    );
 
-const filtredCity = cityDivar.popularCity.filter((c:any)=> c.name.slice(0, inputValue.length).includes(inputValue))
-
-
-setCity({...city , popularCity:filtredCity})
-
-
-
-
-  }
-  
+    setCity({ ...city, popularCity: filtredCity });
+  };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -124,25 +113,21 @@ setCity({...city , popularCity:filtredCity})
       </Box>
       <Box component="div" display="flex">
         <input
-          placeholder= "جست و جوی سریع نام شهر..."
+          placeholder="جست و جوی سریع نام شهر..."
           className={classes.mudalInput}
           onChange={getSearchedCity}
         />
         <SearchRoundedIcon className={classes.searchIcon} />
       </Box>
-      {/* <Route path="/:id">  */}
-        <ModalCity city={city}/>
-      {/* </Route> */}
+      <ModalCity city={city} />
     </div>
   );
-
 
   return (
     <>
       <Box component="div">
         <Button type="button" onClick={handleOpen} className={classes.location}>
           <RoomOutlinedIcon className={classes.locationIcon} />
-          {/* {location.name} */}
           {context.cityUrl}
         </Button>
         <Modal

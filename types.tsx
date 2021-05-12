@@ -16,3 +16,22 @@ export interface CityType {
   name: string;
   value: string;
 }
+
+export interface SuggestionType {
+  displayed_text: string;
+  value: {
+    category: {
+      value: string;
+    };
+  };
+}
+
+export interface city {
+  name: string;
+  value: string;
+}
+
+export interface cities {
+  popularCity: city[];
+  allCity: string[];
+}

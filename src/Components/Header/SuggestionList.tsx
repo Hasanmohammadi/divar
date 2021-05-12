@@ -4,6 +4,7 @@ import Context from "../../context";
 import { Box } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import { SuggestionType } from "../../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,20 +12,18 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "10px 0px 0 0px",
     },
     link: {
-
       margin: "0 0 0 12px",
       padding: "3px 10px",
       borderRadius: "3em",
       fontSize: "12px",
       color: "#a50303",
-      background: "white" ,
+      background: "white",
       border: "1px solid #a50303",
       textDecoration: "none",
-      '&:hover': {
+      "&:hover": {
         background: "#a50303",
         color: "white",
-
-     },
+      },
     },
   })
 );
@@ -34,18 +33,17 @@ export interface BtnCategoryProps {}
 const SuggestionList: React.FC<BtnCategoryProps> = () => {
   const classes = useStyles();
   const context = useContext(Context);
-  const { data  } = context;
+  const { data } = context;
   //@ts-ignore
   const list = data.suggestion_list;
 
-  //@ts-ignore
-  const btns = list.map((suggestion) => {
+  const btns = list.map((suggestion: SuggestionType) => {
     return (
       <Link
         key={suggestion.value.category.value}
         to={`/${context.locationValue}/${suggestion.value.category.value}`}
         className={classes.link}
-        onClick={()=>context.setDataFromSugg(suggestion.value.category.value)}
+        onClick={() => context.setDataFromSugg(suggestion.value.category.value)}
       >
         {`${suggestion.displayed_text} `}
       </Link>

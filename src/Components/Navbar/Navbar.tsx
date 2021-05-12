@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link } from "react-router-dom";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -36,11 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: " 4em",
       border: "1px solid rgb(34 36 38 / 8%)",
       display: "flex",
-      position:"fixed",
-      backgroundColor:"white",
-      //@ts-ignore
-      //@ts-ignore
-      zIndex:2
+      position: "fixed",
+      backgroundColor: "white",
+      zIndex: 2,
     },
 
     rightSide: {
@@ -69,9 +66,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "0px 0px 0px 20px",
       cursor: "pointer",
       transition: "0.5s",
-      "&:hover":{
-        backgroundColor: "#cc4545"
-      }
+      "&:hover": {
+        backgroundColor: "#cc4545",
+      },
     },
 
     image: {
@@ -87,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Navbar: React.FC<NavbarProps> = () => {
   const classes = useStyles();
-const {setDataHomePage , locationValue} = useContext(Context)
+  const { setDataHomePage, locationValue } = useContext(Context);
   return (
     <Box className={classes.navbarContainer}>
       <Box className={classes.rightSide}>
@@ -96,7 +93,6 @@ const {setDataHomePage , locationValue} = useContext(Context)
         </Link>
         <NavbarModal />
       </Box>
-
       <Box className={classes.leftSide}>
         <NavbarLinks />
         <Box>
